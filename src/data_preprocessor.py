@@ -1,10 +1,8 @@
-import sys
-import os
-from pathlib import Path
+# src/data_preprocessor.py
 
 import pandas as pd
 import numpy as np
-from data_loader import BrentDataLoader
+from src.data_loader import BrentDataLoader
 
 
 class BrentDataPreprocessor:
@@ -16,7 +14,8 @@ class BrentDataPreprocessor:
     def __init__(self, df: pd.DataFrame = None, data_path: str = None):
         if df is None:
             if data_path is None:
-                data_path = "data/BrentOilPrices.csv"
+                # Updated absolute path for your local environment
+                data_path = r"C:\Users\Administrator\Desktop\10Academy\Week 11\week11-brent-oil-analysis\data\BrentOilPrices.csv"
             loader = BrentDataLoader(data_path)
             self.df = loader.load()
         else:
