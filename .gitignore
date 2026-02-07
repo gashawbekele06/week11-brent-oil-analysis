@@ -1,0 +1,154 @@
+# .gitignore for Python Data Science Project (Brent Oil Analysis)
+# Based on GitHub's official Python.gitignore template
+# Includes Jupyter Notebook checkpoints, virtual environments, caches, and project-specific ignores
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+data/
+data/*
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django/Flask stuff (if applicable)
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+instance/
+.webassets-cache
+
+# Scrapy/Sphinx/PyBuilder
+.scrapy
+docs/_build/
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv / pipenv / poetry / pdm / pixi
+.python-version
+# Pipfile.lock  # Uncomment if you prefer not to commit
+# poetry.lock
+# pdm.lock
+.pdm-python
+.pdm-build/
+.pixi
+__pypackages__/
+
+# Celery/Redis/RabbitMQ/ActiveMQ
+celerybeat-schedule
+celerybeat.pid
+*.rdb
+*.aof
+*.pid
+mnesia/
+rabbitmq/
+rabbitmq-data/
+activemq-data/
+
+# SageMath
+*.sage.py
+
+# Environments
+.env
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder/Rope/mkdocs/mypy/pyre/pytype/cython
+.spyderproject
+.spyproject
+.ropeproject
+/site
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+cython_debug/
+
+# PyCharm / JetBrains (uncomment if needed)
+# .idea/
+
+# VS Code (uncomment if needed)
+# .vscode/
+
+# Ruff / PyPI / Marimo / Streamlit
+.ruff_cache/
+.pypirc
+marimo/_static/
+marimo/_lsp/
+__marimo__/
+.streamlit/secrets.toml
+
+# macOS
+.DS_Store
+
+# Project-specific ignores
+# Ignore generated outputs (plots, traces, results)
+outputs/
+# Optional: keep an empty .gitkeep to maintain the folder structure
+!outputs/.gitkeep
+
+# Ignore large or temporary data files if added later
+# data/*.parquet
+# data/*.h5
