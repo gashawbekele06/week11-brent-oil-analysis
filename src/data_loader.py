@@ -1,3 +1,5 @@
+# src/data_loader.py
+
 import pandas as pd
 from pathlib import Path
 
@@ -8,7 +10,7 @@ class BrentDataLoader:
     Handles path resolution, date parsing, and basic validation.
     """
 
-    def __init__(self, data_path: str = "data/BrentOilPrices.csv"):
+    def __init__(self, data_path: str = r"C:\Users\Administrator\Desktop\10Academy\Week 11\week11-brent-oil-analysis\data\BrentOilPrices.csv"):
         self.data_path = Path(data_path)
         if not self.data_path.exists():
             raise FileNotFoundError(f"Data file not found at {self.data_path}")
@@ -25,23 +27,41 @@ class BrentDataLoader:
     def load(self) -> pd.DataFrame:
         """
         Load and parse dates properly.
-        Handles mixed formats (dd-mmm-yy and "Month dd, yyyy").
-        Returns: pd.DataFrame sorted by Date, indexed by datetime.
+        Handles mixed formats robustly:
+        - Older: '20-May-87' → %d-%b-%y
+        - Newer: '"Jul 15, 2021"' → %b %d, %Y (after stripping quotes)
         """
         df = self.load_raw()
 
-        # Flexible date parsing
-        df['Date'] = pd.to_datetime(df['Date'], errors='coerce', dayfirst=True)
+        # Keep cleaned original date strings for multiple parsing attempts
+        cleaned_dates = df['Date'].astype(str).str.strip('"').str.strip()
 
-        if df['Date'].isna().any():
-            # Fallback for quoted formats like "Jul 15, 2021"
-            mask = df['Date'].isna()
+        # First attempt: Older format (dd-mmm-yy)
+        df['Date'] = pd.to_datetime(
+            cleaned_dates, format='%d-%b-%y', errors='coerce')
+
+        # Mask for failed parses (mostly newer dates)
+        mask = df['Date'].isna()
+
+        if mask.any():
+            # Second attempt on failed ones: Newer format (Month dd, yyyy)
             df.loc[mask, 'Date'] = pd.to_datetime(
-                df.loc[mask, 'Date'].str.strip('"'), format='%b %d, %Y', errors='coerce')
+                cleaned_dates[mask],
+                format='%b %d, %Y',
+                errors='coerce'
+            )
 
-        if df['Date'].isna().any():
-            raise ValueError("Some dates could not be parsed. Check the CSV.")
+        # Final diagnostic + check
+        remaining_mask = df['Date'].isna()
+        if remaining_mask.any():
+            # Will show original bad values
+            bad_dates = df.loc[remaining_mask, 'Date'].unique()
+            print("WARNING: These date strings could not be parsed:")
+            print(df[remaining_mask]['Date'].unique())
+            raise ValueError(
+                f"Some dates could not be parsed. Examples: {bad_dates[:10]}")
 
+        # Sort, index, and finalize
         df = df.sort_values('Date').reset_index(drop=True)
         df = df.set_index('Date')
 
