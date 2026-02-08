@@ -10,3 +10,5 @@ ipywidgets
 flask
 flask-cors
 pytensor
+numpyro
+blackjax
