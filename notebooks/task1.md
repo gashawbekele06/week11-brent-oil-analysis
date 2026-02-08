@@ -128,4 +128,3 @@ Detect structural breaks (e.g., mean shifts from events). Bayesian approach uses
 - Posterior of τ (break dates with uncertainty).
 - Pre/post regime means.
 - Visualizations of identified breaks.
-- Limitations: abrupt shift assumption; single change point requires recursion.
