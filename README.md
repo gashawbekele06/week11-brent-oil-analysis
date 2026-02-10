@@ -1,23 +1,27 @@
-# Brent Oil Prices Dashboard & Bayesian Change Point Analysis  
-**Birhan Energies – Week 11 Challenge**
+# Week 11 – Brent Oil Change Point Analysis & Interactive Dashboard
 
-Interactive dashboard and Bayesian analysis to understand how major geopolitical, OPEC policy, sanctions, and economic events have historically driven structural breaks (regime shifts) in Brent crude oil prices.
-
-**Current date reference**: February 08, 2026 (interim submission)
+**Birhan Energies** – Data-Driven Insights on Brent Crude Oil Price Regimes  
+**Prepared by**: Gashaw Bekele  
+**Date**: February 08–10, 2026
 
 ## Project Overview
 
+This project performs **Bayesian change point detection** on historical Brent crude oil prices (1987–2022) to identify structural breaks (regime shifts) and associate them with major geopolitical, OPEC policy, sanctions, and economic events.
+
 **Business Objective**  
-Quantify and explain how significant external shocks affect Brent oil price regimes to support better decision-making for:  
-- Investors (risk management, timing, hedging)  
-- Policymakers (energy security, inflation control)  
-- Energy companies (cost forecasting, operations, supply chain)
+Help stakeholders (investors, policymakers, energy companies) better understand which external shocks historically caused the largest price movements and by approximately how much — improving risk management, policy design, and strategic planning.
 
-**Core Deliverables**  
-- Bayesian change point detection (PyMC) identifying mean-level regime shifts  
-- Temporal association with curated high-impact events  
-- Fully interactive Flask + React dashboard showing prices, events, change points, volatility, and impact metrics
+**Key Results**  
+- Single change-point model detects a major regime shift around **2014-10-22** (index 706)  
+- Average price shifted from ~$109/barrel to ~$62/barrel (–42.7% drop)  
+- Strong alignment with OPEC's November 2014 no-cut decision and the 2014–2016 oil price collapse  
+- Model convergence: max R-hat ≈1.004 (GOOD)
 
+**Technologies Used**  
+- Python: Pandas, NumPy, PyMC, ArviZ (Bayesian modeling)  
+- Flask: Backend API  
+- React + Recharts: Interactive frontend dashboard  
+- Data sources: `BrentOilPrices.csv`, `events.csv`, `change_points.json`
 ## Folder Structure
 week11-brent-oil-analysis/
 ├── data/
@@ -52,28 +56,30 @@ week11-brent-oil-analysis/
 └── requirements.txt                # Optional: combined project dependencies
 
 
-## Prerequisites
 
-**Backend**
-- Python 3.9+
-- pip
+## Setup & Run
 
-**Frontend**
-- Node.js 16+ / npm 8+
-- (yarn optional)
+### Prerequisites
 
-## Installation & Setup
+- Python 3.8+ (venv recommended)
+- Node.js 16+ & npm
+- Git (optional)
 
 ### 1. Backend (Flask API)
 
 ```bash
-# Navigate to backend folder
 cd backend
-
-# Install dependencies
-pip install -r requirements_backend.txt
+pip install -r requirements.txt   # or manually: flask flask-cors pandas numpy
+python app.py
 
 flask
 flask-cors
 pandas
 numpy
+```
+### 2 Frontend (React Dashboard)
+
+```bash
+cd frontend
+npm install
+npm start
